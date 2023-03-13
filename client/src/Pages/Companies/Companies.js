@@ -11,9 +11,11 @@ import TableRow from "@material-ui/core/TableRow";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify";
 import { useStateValue } from "../../Context/StateProvider";
 import AddCompany from "./AddCompany";
 import "./Companies.css";
+import EditCompany from "./EditCompany";
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -40,11 +42,21 @@ function Companies() {
   const [companiesList, setCompaniesList] = useState([]);
   const baseUrl = "http://localhost:3001";
 
+
+  const [openEdit, setOpenEdit] = useState(false);
+
+  const [companyDetails, setCompanyDetails] = useState('');
+
   const [open, setOpen] = useState(false);
   const [openCompany, setOpenCompany] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
+
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+  };
+
   const handleOpenCompany = () => {
     setOpenCompany(true);
   };
@@ -64,6 +76,26 @@ function Companies() {
     });
   };
 
+
+
+
+  const deleteCompany = (id) => () => {
+    Axios.post(`${baseUrl}/companyDelete`, {
+      id: id
+    }).then((response) => {
+      if (response.data.err) {
+        return toast("Some error", { type: "error" });
+      } else return toast("Successfully Deleted", { type: "error" });
+    });
+  };
+
+
+  const editCompany = (usn) => () => {
+    setCompanyDetails(usn);
+    setOpenEdit(true);
+  };
+
+
   useEffect(() => {
     getCompanies();
   });
@@ -71,6 +103,7 @@ function Companies() {
   return (
     <div className="companies_page">
       <TableContainer component={Paper}>
+        <ToastContainer position="bottom-center" />
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -89,6 +122,9 @@ function Companies() {
               <TableCell className={classes.tableHeading} align="left">
                 Position
               </TableCell>
+              <TableCell className={classes.tableHeading} align="left">
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -100,7 +136,7 @@ function Companies() {
                     className={classes.tableData}
                     component="th"
                     scope="row"
-                    // onClick={handleOpenCompany}
+                  // onClick={handleOpenCompany}
                   >
                     {company.cname}
                   </TableCell>
@@ -148,6 +184,14 @@ function Companies() {
                   <TableCell className={classes.tableData} align="left">
                     {company.position}
                   </TableCell>
+                  <TableCell className={classes.tableData} align="left">
+                    <button onClick={deleteCompany(company.id)}>
+                      Delete
+                    </button>
+                    <button  onClick={editCompany(company)} >
+                      Edit
+                    </button>
+                  </TableCell>
                 </TableRow>
               );
             })}
@@ -167,6 +211,22 @@ function Companies() {
             aria-describedby="simple-modal-description"
           >
             <AddCompany />
+          </Modal>
+        </>
+      )}
+
+
+      {!admin || admin === "" ? null : (
+        <>
+
+          <Modal
+            open={openEdit}
+            onClose={handleCloseEdit}
+            className="modal"
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            <EditCompany isOpen={editCompany} companyDetails={companyDetails} />
           </Modal>
         </>
       )}

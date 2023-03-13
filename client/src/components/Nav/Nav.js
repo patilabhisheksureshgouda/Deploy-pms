@@ -33,6 +33,8 @@ function Nav() {
       type: actionTypes.SET_STAFF,
       staff: null,
     });
+
+    localStorage.clear();
   };
   return (
     <nav className="navbar">
@@ -63,6 +65,13 @@ function Nav() {
           Placements
         </Link>
       </li>
+      {!admin || admin === "" ? (
+        <li>
+          <Link to={{ pathname: "http://localhost:8080/" }}  target="_blank" className="navbar_link">
+            Quiz
+          </Link>
+        </li>
+      ) : null}
       <li>
         <btn className="logout-btn" onClick={logout}>
           Logout

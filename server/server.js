@@ -10,7 +10,7 @@ app.use(express.json());
 /////////////////////S E R V E R   P O R T SETUP///////////////
 const PORT = 3001;
 app.listen(process.env.PORT || PORT, () => {
-  console.log(`hurrayy , server running on port ${PORT}`);
+  console.log(`server running on port ${PORT}`);
 });
 
 //////////////////GET REQUEST TO SHOW/READ DATA FOR STUDENTS//////////////
@@ -177,6 +177,51 @@ app.post("/addcompany", (req, res) => {
   );
 });
 
+
+
+/////////////////////ROUTE FOR UPDATE COMPANY /////////////
+app.post("/updateCompany", (req, res) => {
+  db.query("UPDATE `companydetails` SET ? WHERE `companydetails`.`email` = ? ",
+    [{
+       cname : req.body.cname,
+       cdescription : req.body.cdescription,
+       email : req.body.email,
+       phone : req.body.phone,
+       website : req.body.website,
+       adrs : req.body.adrs,
+       package : req.body.package,
+       mincgpa : req.body.mincgpa,
+       position : req.body.position,
+    },req.body.email],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ message: "Updated" });
+      }
+    }
+  );
+});
+
+
+
+/////////////////////ROUTE FOR Delete Company /////////////
+app.post("/companyDelete", (req, res) => {
+  const id = req.body.id;
+  db.query(
+    "DELETE FROM `companydetails` WHERE  `companydetails`.`id` = ?",
+    [id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ message: "Deleted", result : result });
+      }
+    }
+  );
+});
+
+
 /////////////////////ROUTE FOR ADD PLACEMENTS /////////////
 app.post("/addplacement", (req, res) => {
   const sname = req.body.sname;
@@ -233,6 +278,50 @@ app.post("/addstudents", (req, res) => {
     }
   );
 });
+
+
+
+/////////////////////ROUTE FOR UPDATE STUDENTS /////////////
+app.post("/updateStudents", (req, res) => {
+  db.query("UPDATE `studentdetails` SET ? WHERE `studentdetails`.`usn` = ? ",
+    [{
+       sname :req.body.sname,
+       mobile : req.body.mobile,
+       email : req.body.email,
+       dob : req.body.dob,
+       branch : req.body.branch,
+       cgpa : req.body.cgpa,
+    },req.body.usn],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ message: "Deleted" });
+      }
+    }
+  );
+});
+
+
+
+
+/////////////////////ROUTE FOR Delete STUDENTS /////////////
+app.post("/studentDelete", (req, res) => {
+  const usn = req.body.usn;
+  db.query(
+    "DELETE FROM `studentdetails` WHERE  `studentdetails`.`usn` = ?",
+    [usn],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ message: "Deleted", result : result });
+      }
+    }
+  );
+});
+
+
 //////////////////GET REQUEST TO SHOW/READ DATA FOR UserProfile//////////
 
 app.get("/profile", (req, res) => {
@@ -247,6 +336,43 @@ app.get("/profile", (req, res) => {
     }
   );
 });
+
+
+//////////////////GET REQUEST TO SHOW/READ DATA FOR UserProfile//////////
+
+app.post("/getprofile", (req, res) => {
+  db.query(
+    "SELECT sl.usn,sd.sname,sd.mobile,sd.email,sd.dob,sd.branch,sd.cgpa FROM slogin AS sl INNER JOIN studentdetails AS sd ON sl.usn = sd.usn;",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.post("/getprofile", (req, res) => {
+  const usn = req.body.usn;
+  db.query(
+    "SELECT * FROM `studentdetails` WHERE `usn` = ?",
+    [usn],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+
+
+
+
+
 
 //////////////////GET REQUEST TO SHOW/READ DATA FOR AdminProfile//////////
 

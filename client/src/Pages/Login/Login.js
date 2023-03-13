@@ -96,6 +96,8 @@ function Login() {
           type: actionTypes.SET_USER,
           user: response.data,
         });
+
+        localStorage.setItem("token",response.data);
         console.log("====================================");
         console.log(response.data);
         console.log("====================================");

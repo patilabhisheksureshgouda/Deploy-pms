@@ -13,6 +13,8 @@ import { useStateValue } from "../../Context/StateProvider";
 import { Modal } from "@material-ui/core";
 import AddStudent from "./AddStudent";
 import "./Students.css";
+import { toast, ToastContainer } from "react-toastify";
+import Editstudent from "./EditStudent";
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -38,6 +40,12 @@ function Students() {
   const baseUrl = "http://localhost:3001";
 
   const [open, setOpen] = useState(false);
+
+  const [openEdit, setOpenEdit] = useState(false);
+
+  const [usn, setUsn] = useState('');
+
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -45,6 +53,11 @@ function Students() {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+  };
+
+  
   /* eslint-disable */
   const [{ admin }, dispatchAdmin] = useStateValue();
 
@@ -58,8 +71,31 @@ function Students() {
   useEffect(() => {
     getStudents();
   });
+
+
+
+  const deleteStudent = (usn) => () => {
+
+    Axios.post(`${baseUrl}/studentDelete`, {
+      usn: usn
+    }).then((response) => {
+      if (response.data.err) {
+        return toast("Some error", { type: "error" });
+      } else return toast("Successfully Deleted", { type: "success" });
+    });
+  };
+
+  const editStudent = (usn) => () => {
+    setUsn(usn);
+    setOpenEdit(true);
+  };
+
+
+
+
   return (
     <div className="placements_page">
+      <ToastContainer position="bottom-center" />
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -86,6 +122,9 @@ function Students() {
               </TableCell>
               <TableCell className={classes.tableHeading} align="left">
                 CGPA
+              </TableCell>
+              <TableCell className={classes.tableHeading} align="left">
+                Actions
               </TableCell>
             </TableRow>
           </TableHead>
@@ -118,6 +157,14 @@ function Students() {
                   <TableCell className={classes.tableData} align="left">
                     {student.cgpa}
                   </TableCell>
+                  <TableCell className={classes.tableData} align="left">
+                    <button onClick={deleteStudent(student.usn)}>
+                      Delete
+                    </button>
+                    <button onClick={editStudent(student)}>
+                      Edit
+                    </button>
+                  </TableCell>
                 </TableRow>
               );
             })}
@@ -137,6 +184,22 @@ function Students() {
             aria-describedby="simple-modal-description"
           >
             <AddStudent isOpen={handleOpen} />
+          </Modal>
+        </>
+      )}
+
+
+      {!admin || admin === "" ? null : (
+        <>
+       
+          <Modal
+            open={openEdit}
+            onClose={handleCloseEdit}
+            className="modal"
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            <Editstudent isOpen={editStudent}  usn={usn}/>
           </Modal>
         </>
       )}

@@ -13,9 +13,11 @@ function App() {
   const [{ admin }, dispatchAdmin] = useStateValue();
   const [{ staff }, dispatchStaff] = useStateValue();
 
+  const token = localStorage.getItem('token');
   return (
     <>
-      {!admin && !user && !staff ? (
+      
+      {!admin && !user && !staff && !token ? (
         <Login />
       ) : (
         <Router>
