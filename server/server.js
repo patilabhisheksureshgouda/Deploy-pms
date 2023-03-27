@@ -405,3 +405,92 @@ app.get("/adminprofile", (req, res) => {
 //     }
 //   );
 // });
+
+
+// //////////////////GET QUIZ API//////////
+// app.get('/quiz', (req, res) => {
+  
+//     // Execute the query to get all quiz questions and answers
+//     db.query('SELECT * FROM quiz_questions', (err, results) => {
+//       if (err) {
+//         console.error(err);
+//         res.status(500).send('Internal server error');
+//         return;
+//       }
+
+//       // Send the quiz questions and answers as a JSON response
+//       res.json(results);
+//     });
+
+// });
+
+app.get('/quiz', (req, res) => {
+  
+  // Execute the query to get all quiz questions and answers
+  db.query('SELECT * FROM quiz_questions', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Internal server error');
+      return;
+    }
+
+    // Transform the data into the desired format
+    const formattedResults = results.map(result => {
+      return {
+        question: result.question,
+        answers: [result.answer_1, result.answer_2, result.answer_3, result.answer_4],
+        correct: result.correct_answer
+      }
+    })
+
+    // Send the formatted quiz questions and answers as a JSON response
+    res.json(formattedResults);
+  });
+
+});
+
+
+
+
+// define the API route for inserting a new question
+// app.post('/questions', (req, res) => {
+//   const question = req.body.question;
+//   const answers = req.body.answers;
+//   const correct = req.body.correct;
+
+//   // insert the new question into the database
+//   db.query('INSERT INTO quiz_questions (question, answers, correct) VALUES (?, ?, ?)', [question, answers, correct], (err, results) => {
+//     if (err) {
+//       console.error('Error inserting the question into the database: ' + err.stack);
+//       res.status(500).send('Error inserting the question into the database.');
+//       return;
+//     }
+//     console.log('Question inserted into the database with ID ' + results.insertId);
+//     res.status(201).json({ message: 'Question inserted into the database.' });
+//   });
+// });
+
+
+app.post('/questions', (req, res) => {
+  const { question, answers, correct } = req.body;
+
+  const insertQuestionQuery = `INSERT INTO quiz_questions (question, answer_1, answer_2, answer_3, answer_4, correct_answer)
+                               VALUES (?, ?, ?, ?, ?, ?)`;
+
+  const values = [question, answers[0], answers[1], answers[2], answers[3], correct];
+
+  db.query(insertQuestionQuery, values, (err, result) => {
+    if (err) {
+      console.error('Error inserting question into database: ', err);
+      res.status(500).send('Error inserting question into database');
+      return;
+    }
+
+    console.log('Question inserted successfully with ID: ', result.insertId);
+
+    res.status(201).json({
+      message: 'Question inserted successfully',
+      questionId: result.insertId
+    });
+  });
+});

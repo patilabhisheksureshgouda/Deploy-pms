@@ -6,6 +6,7 @@ import Companies from "./Pages/Companies/Companies";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Placements from "./Pages/Placements/Placements";
+import QuizForm from "./Pages/quiz/QuizForm";
 import Students from "./Pages/Students/Students";
 /* eslint-disable */
 function App() {
@@ -38,6 +39,9 @@ function App() {
             </Route>
             <Route exact path="/login">
               <Login />
+            </Route>
+            <Route exact path="/quiz">
+              <QuizForm />
             </Route>
           </Switch>
         </Router>

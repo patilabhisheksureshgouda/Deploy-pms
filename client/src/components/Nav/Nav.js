@@ -1,6 +1,6 @@
 import { Avatar, Modal } from "@material-ui/core";
 import React, { useState } from "react";
-import {  FaUniversity } from "react-icons/fa";
+import { FaUniversity } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { actionTypes } from "../../Context/reducer";
 import { useStateValue } from "../../Context/StateProvider";
@@ -67,11 +67,20 @@ function Nav() {
       </li>
       {!admin || admin === "" ? (
         <li>
-          <Link to={{ pathname: "http://localhost:8080/" }}  target="_blank" className="navbar_link">
+          <Link to={{ pathname: "http://localhost:8080/" }} target="_blank" className="navbar_link">
             Quiz
           </Link>
         </li>
       ) : null}
+
+      {staff  ? (
+        <li>
+          <Link to="/quiz" className="navbar_link">
+          Quiz ADD
+        </Link>
+        </li>
+      ) : null}
+
       <li>
         <btn className="logout-btn" onClick={logout}>
           Logout
@@ -80,43 +89,43 @@ function Nav() {
 
 
 
-        { staff ? (<></>) : (<>
-        
-          {!user || user === "" ? (
-        <>
-          <Avatar
-            onClick={handleOpen}
-            src="https://images.pexels.com/photos/1933873/pexels-photo-1933873.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-          />
-          <Modal
-            open={open}
-            onClose={handleClose}
-            className="modal"
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-          >
-            <AdminProfile />
-          </Modal>
-        </>
-      ) : (
-        <>
-          <Avatar
-            onClick={handleOpen}
-            src="https://images.pexels.com/photos/1933873/pexels-photo-1933873.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-          />
-          <Modal
-            open={open}
-            onClose={handleClose}
-            className="modal"
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-          >
-            <UserProfile />
-          </Modal>
-        </>
-      )}
-        </>)}
-     
+      {staff ? (<></>) : (<>
+
+        {!user || user === "" ? (
+          <>
+            <Avatar
+              onClick={handleOpen}
+              src="https://images.pexels.com/photos/1933873/pexels-photo-1933873.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            />
+            <Modal
+              open={open}
+              onClose={handleClose}
+              className="modal"
+              aria-labelledby="simple-modal-title"
+              aria-describedby="simple-modal-description"
+            >
+              <AdminProfile />
+            </Modal>
+          </>
+        ) : (
+          <>
+            <Avatar
+              onClick={handleOpen}
+              src="https://images.pexels.com/photos/1933873/pexels-photo-1933873.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+            />
+            <Modal
+              open={open}
+              onClose={handleClose}
+              className="modal"
+              aria-labelledby="simple-modal-title"
+              aria-describedby="simple-modal-description"
+            >
+              <UserProfile />
+            </Modal>
+          </>
+        )}
+      </>)}
+
 
       <div></div>
     </nav>

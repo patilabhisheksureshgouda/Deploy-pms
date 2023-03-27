@@ -13,7 +13,10 @@
       "@babel/preset-react"
     ],
     "plugins": [
-      "@babel/plugin-proposal-class-properties"
+      "@babel/plugin-proposal-class-properties",
+      ["@babel/plugin-transform-runtime", {
+        "regenerator": true
+      }]
     ]
   },
   "keywords": [
@@ -24,6 +27,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
+    "babel-runtime": "^6.26.0",
     "bootstrap": "^4.3.1",
     "express": "^4.17.0",
     "express-favicon": "^2.0.1",
@@ -32,11 +36,13 @@
     "popper.js": "^1.15.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-reveal": "^1.2.2"
+    "react-reveal": "^1.2.2",
+    "regenerator-runtime": "^0.13.11"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
