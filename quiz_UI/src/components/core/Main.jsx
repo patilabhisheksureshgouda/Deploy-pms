@@ -4,6 +4,9 @@ import Answers from './Answers.jsx';
 import Popup from './Popup.jsx';
 import getQuestions from './data';
 import regeneratorRuntime from "regenerator-runtime";
+import Webcam from "react-webcam";
+
+
 
 class Main extends Component {
   constructor(props) {
@@ -16,7 +19,7 @@ class Main extends Component {
       score: 0,
       displayPopup: 'flex',
       isLoading: true,
-      data:[]
+      data: []
     }
     this.nextQuestion = this.nextQuestion.bind(this);
     this.handleShowButton = this.handleShowButton.bind(this);
@@ -30,23 +33,23 @@ class Main extends Component {
     const question = data[0].question;
     const answers = data[0].answers;
     const correct = data[0].correct;
-  
+
     await this.setState({
       question,
       answers,
       correct,
       total: data.length,
       isLoading: false,
-      data:data
+      data: data
     });
 
-    console.log('ans',this.state.total)
+    console.log('ans', this.state.total)
   }
-  
+
 
   insertData(count) {
     let { data } = this.state;
-  
+
     this.setState({
       question: data[count].question,
       answers: [
@@ -69,13 +72,13 @@ class Main extends Component {
 
   nextQuestion() {
     let { count, total } = this.state;
-  
+
     if (count === total) {
       this.setState({
         displayPopup: 'flex'
       });
     } else {
-      
+
       this.insertData(count);
       this.setState({
         showButton: false,
@@ -97,17 +100,33 @@ class Main extends Component {
     });
   }
 
+
+
   render() {
     let { count, total, question, answers, correct, showButton, questionAnswered, displayPopup, score, isLoading } = this.state;
 
     if (isLoading) {
       return (
-        <div className="loader">Loading...</div>
+        <div className="loader">Loading...
+
+        </div>
       );
     }
 
     return (
       <div className="container">
+
+        <Webcam
+          style={{
+            alignSelf: 'flex-end',
+            marginTop: 0,
+            right: 0,
+            position: 'absolute'
+          }}
+          height={300}
+          width={300}
+        />
+
         <Popup style={{ display: displayPopup }}
           score={score}
           total={total}
