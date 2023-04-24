@@ -5,6 +5,7 @@ CREATE TABLE studentdetails (
   stid int NOT NULL AUTO_INCREMENT,
   sname varchar(30) NOT NULL ,
   usn varchar(12) NOT NULL UNIQUE,
+  sskills varchar(30) NOT NULL ,
   mobile bigint NOT NULL UNIQUE,
   email varchar(30) NOT NULL UNIQUE ,
   dob date NOT NULL,
@@ -49,11 +50,11 @@ CREATE TABLE alogin (
 CREATE TABLE companydetails (
   id int NOT NULL AUTO_INCREMENT,
   cname varchar(30) NOT NULL UNIQUE,
-  cdescription  varchar(300) NOT NULL,
+  crequiredskills  varchar(300) NOT NULL,
   email varchar(30) NOT NULL UNIQUE,
   phone bigint NOT NULL UNIQUE,
   website varchar(30) NOT NULL,
-  adrs varchar(300) NOT NULL,
+  jloc varchar(300) NOT NULL,
   package varchar(30) NOT NULL,
   mincgpa float NOT NULL,
   position varchar(50) NOT NULL,
@@ -76,18 +77,22 @@ CREATE TABLE updateddrive (
   FOREIGN KEY (cname) REFERENCES companydetails(cname) ON DELETE CASCADE
 );
 
-INSERT INTO studentdetails (sname, usn, mobile, email, dob, branch, cgpa) VALUES
-( 'Aarushi Rathore', '1js18is005', 9149256646, 'aarushirathore5@gmai', '1998-11-18', 'ISE', 9.1),
-( 'Aditi J', '1js18is002', 9165487956, 'J.aditi@gmail.com', '1999-05-18', 'ISE', 8.6),
-( 'Akanksha', '1js18is003', 8756245891, 'anku637@gmail.com', '1998-09-06', 'ISE', 8.8),
-( 'Aman Sharma', '1js18cs052', 5487952165, 'coolaman@gmail.com', '1999-11-02', 'CSE', 7.6),
-( 'Kavan Patel', '1js18is063', 9456852213, 'gujarati.choda@gmail.com', '1999-10-18', 'ISE', 6.9),
-( 'Priyank Baliyan', '1js18cs069', 8542696969, 'dj.khalid@gmail.com', '2000-08-27', 'CSE', 7.1),
-( 'Rahul Tilwani', '1js18is071', 9511154696, 'tillu69@gmail.com', '2000-10-12', 'ISE', 7.8),
-( 'Ishani', '1js18cs025', 7456249450, 'ishani123@gmail.com', '1999-11-06', 'CSE', 9.6),
-( 'Disha Panjwani', '1js18cs013', 9456845213, 'dishubabes@gmail.com', '1999-03-14', 'CSE', 9.5),
-( 'Shikumi', '1js18is082', 8094125720, 'shikumi@gmail.com', '1999-09-28', 'ISE', 7.8),
-( 'Pallavi Pandey', '1js18is062', 7531596482, 'ispalpal@gmail.com', '1999-11-13', 'ISE', 8.1);
+INSERT INTO `studentdetails` (`stid`, `sname`, `usn`, `sskills`, `mobile`, `email`, `dob`, `branch`, `cgpa`) VALUES
+(1,'John Doe','usn001','Java, Python', '9876543210', 'johndoe@example.com', '2000-01-01', 'CS', 8.75),
+(2,'Jane Doe','usn002', 'C++, Python', '9876543211', 'janedoe@example.com', '2000-02-01', 'CS', 8.50),
+( 3,'Bob Smith','usn003','AutoCAD, SolidWorks', '9876543212', 'bobsmith@example.com', '2000-03-01', 'ME', 8.25),
+( 4,'Alice Johnson','usn004', 'MATLAB, Simulink', '9876543213', 'alicejohnson@example.com', '2000-04-01', 'EC', 8.00),
+( 5,'David Lee','usn005', 'ANSYS, CFD', '9876543214', 'davidlee@example.com', '2000-05-01', 'ME', 7.75),
+( 6,'Karen Brown','usn006', 'Verilog, VHDL', '9876543215', 'karenbrown@example.com', '2000-06-01', 'EC', 7.50),
+( 7, 'Mark Wilson','usn007','JavaScript, HTML', '9876543216', 'markwilson@example.com', '2000-07-01', 'CS', 7.25),
+( 8, 'Amy Davis','usn008','ANSYS, SolidWorks', '9876543217', 'amydavis@example.com', '2000-08-01', 'ME', 7.00),
+( 9, 'Tommy Garcia','usn009','MATLAB, Simulink', '9876543218', 'tommygarcia@example.com', '2000-09-01', 'EC', 6.75),
+(10, 'Sara Jackson','usn010','Python, Django', '9876543219', 'sarajackson@example.com', '2000-10-01', 'CS', 6.50),
+(11,'Ryan Smith', 'usn011', 'AutoCAD, ANSYS', '9876543220', 'ryansmith@example.com', '2000-11-01', 'ME', 6.25),
+( 12, 'Olivia Johnson','usn012','Verilog, VHDL', '9876543221', 'oliviajohnson@example.com', '2000-12-01', 'EC', 6.00),
+( 13,'Lucas Davis','usn013','Java, JavaScript', '9876543222', 'lucasdavis@example.com', '2001-01-01', 'CS', 5.75),
+( 14 , 'Sophia Wilson','usn014','SolidWorks, CFD', '987654322', 'sophiawilson@gmail.com','2001-01-05','cs',6.35);
+
 
 
 INSERT INTO slogin ( usn, pass) VALUES
@@ -116,11 +121,21 @@ INSERT INTO alogin ( aname, email, pass) VALUES
 ('Shiku', 'shiku@gmail.com','shiku'),
 ('Aditi', 'ajr@gmail.com', 'aditi');
 
-INSERT INTO companydetails (cname, cdescription, email, phone, website, adrs, package, mincgpa, position) VALUES
-('Amazon', 'Amazon is an American multinational technology company based in Seattle, Washington, which focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence.', 'ecr-replies@amazon.com', 8882804331, 'www.amazon.com','Amazon Development Center India Pvt Ltd., 2nd Floor, Safina Towers, Bangalore – 560052', '15-30 lakhs', '7','WEB DEVELOPER'),
-('Wipro', 'Wipro Limited is an Indian multinational corporation that provides information technology, consulting and business process services.', 'ecr-replies@wipro.com', 8046726000, 'www.wipro.com','Doddakannelli, Sarjapur Road Bengaluru - 560 035, India', '10-20 lakhs', '7','WEB DEVELOPER'),
-('Infosys', 'Infosys Limited, is an Indian multinational corporation that provides business consulting, information technology and outsourcing services.', 'Askus@infosys.com', 8028520362, 'www.infosys.com','Electronics City, Hosur Road, Bengaluru 560 100, India', '10-50 lakhs', '7','WEB DEVELOPER'),
-('Accenture', 'Accenture plc is an American-Irish multinational professional services company.', 'xxxx@accenture.com', 8049346001, 'www.accenture.com','4/1, IBC Knowledge Park, Bannerghatta Road Bangalore, Karnataka India - 560029', '8-12 lakhs', '6.5','WEB DEVELOPER');
+INSERT INTO `companydetails` (`id`,`cname`, `crequiredskills`, `email`, `phone`, `website`, `jloc`, `package`, `mincgpa`, `position`) VALUES
+(1,'ABC Corporation', 'Programming, Database Management', 'info@abccorp.com', '1234567890', 'www.abccorp.com', 'Bangalore', 800000, 7.5, 'Software Developer'),
+(2,'XYZ Corporation', 'Marketing, Public Speaking', 'info@xyzcorp.com', '2345678905', 'www.xyzcorp.com', 'Mumbai', 700000, 7.0, 'Marketing Manager'),
+(3,'PQR Corporation', 'Graphic Design, Web Development', 'info@pqrcorp.com', '3456789011', 'www.pqrcorp.com', 'Chennai', 900000, 8.0, 'Web Designer'),
+(4,'LMN Corporation', 'Journalism, Creative Writing', 'info@lmncorp.com', '4567890123', 'www.lmncorp.com', 'Delhi', 750000, 7.2, 'Content Writer'),
+(5,'DEF Corporation', 'Data Analysis, Statistics', 'info@defcorp.com', '5678901243', 'www.defcorp.com', 'Pune', 850000, 8.5, 'Data Analyst'),
+(6,'GHI Corporation', 'Public Relations, Event Planning', 'info@ghicorp.com', '6789012345', 'www.ghicorp.com', 'Hyderabad', 700000, 7.0, 'Event Manager'),
+(7,'JKL Corporation', 'Networking, Cybersecurity', 'info@jklcorp.com', '7890123456', 'www.jklcorp.com', 'Bangalore', 1000000, 9.0, 'Cybersecurity Analyst'),
+(8,'MNO Corporation', 'Project Management, Leadership', 'info@mnoCorp.com', '8901234567', 'www.mnocorp.com', 'Mumbai', 950000, 8.0, 'Project Manager'),
+(9,'QRS Corporation', 'Data Mining, Machine Learning', 'info@qrscorp.com', '9012345678', 'www.qrscorp.com', 'Chennai', 1200000, 9.5, 'Data Scientist'),
+(10,'TUV Corporation', 'Graphic Design, Photography', 'info@tuvcorp.com', '0123456789', 'www.tuvcorp.com', 'Delhi', 650000, 7.5, 'Graphic Designer'),
+(11,'VWX Corporation', 'Web Development, UI/UX Design', 'info@vwxcorp.com', '2345678901', 'www.vwxcorp.com', 'Pune', 800000, 8.0, 'UI/UX Designer'),
+(12,'YZA Corporation', 'Marketing, Advertising', 'info@yzacorp.com', '3456789012', 'www.yzacorp.com', 'Hyderabad', 700000, 7.0, 'Advertising Manager'),
+(13,'BCT Corporation', 'Database Management, Programming', 'info@bctcorp.com', '4567890133', 'www.bctcorp.com', 'Bangalore', 900000, 8.0, 'Database Administrator'),
+(14,'LQP Corporation', 'Creative Writing, Journalism', 'info@lqpcorp.com', '5678901234', 'www.lqpcorp.com', 'Mumbai', 750000, 7.5, 'Journalist');
 
 INSERT INTO updateddrive (usn, sname, batch, cname, pdate, package, position) VALUES
 ('1js18is005', 'Aarushi Rathore', '2018', 'Infosys', '2021-09-28', '11,00,000', 'WEB DEVELOPER'),

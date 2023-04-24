@@ -14,7 +14,11 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "heroku": "^7.56.0",
+    "machinelearn": "^2.1.5",
+    "ml-regression": "^5.0.0",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.6"
+    "nodemailer": "^6.9.1",
+    "nodemon": "^2.0.6",
+    "request": "^2.88.2"
   }
 }

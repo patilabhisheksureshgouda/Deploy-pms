@@ -5,6 +5,7 @@ import "./AddStudent.css";
 function AddStudent() {
   const [sname, setSname] = useState("");
   const [usn, setUsn] = useState("");
+  const [sskills, setsskills] = useState("");
   const [mobile, setMobile] = useState(0);
   const [email, setEmail] = useState("");
   const [dob, setDob] = useState("");
@@ -16,6 +17,7 @@ function AddStudent() {
     Axios.post(`${baseUrl}/addstudents`, {
       sname: sname,
       usn: usn,
+      sskills:sskills,
       mobile: mobile,
       email: email,
       dob: dob,
@@ -52,6 +54,15 @@ function AddStudent() {
             onChange={(e) => setUsn(e.target.value)}
           />
           <label>USN</label>
+        </div>
+        <div className="add-placement-form">
+          <input
+            type="text"
+            required="true"
+            name=""
+            onChange={(e) => setsskills(e.target.value)}
+          />
+          <label>student skills</label>
         </div>
         <div className="add-placement-form">
           <input

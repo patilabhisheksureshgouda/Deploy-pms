@@ -4,27 +4,28 @@ import { toast, ToastContainer } from "react-toastify";
 import "./AddCompany.css";
 function AddCompany() {
   const [cname, setCname] = useState("");
-  const [cdescription, setCdescription] = useState("");
+  const [crequiredskills, setcrequiredskills] = useState("");
   const [email, setEmail] = useState("");
+  const [position, setPosition] = useState("");
   const [phone, setPhone] = useState(0);
-  const [website, seWebsite] = useState("");
-  const [adrs, setAdrs] = useState("");
+  const [website, setWebsite] = useState("");
+  const [jloc, setjloc] = useState("");
   const [salary, setSalary] = useState(0);
   const [mincgpa, setMinCgpa] = useState(0);
-  const [position, setPosition] = useState("");
+  
   const baseUrl = "http://localhost:3001";
 
   const addCompany = () => {
     Axios.post(`${baseUrl}/addcompany`, {
       cname: cname,
-      cdescription: cdescription,
-      email: email,
-      phone: phone,
+      crequiredskills: crequiredskills,
+      // email: email,
+      // phone: phone,
+      position: position,
       website: website,
-      adrs: adrs,
+      jloc: jloc,
       package: salary,
       mincgpa: mincgpa,
-      position: position,
     }).then((response) => {
       // if (response.data.message) {
       //   return toast(" User already exists", { type: "error" });
@@ -53,11 +54,11 @@ function AddCompany() {
             type="text"
             required="true"
             name=""
-            onChange={(e) => setCdescription(e.target.value)}
+            onChange={(e) => setcrequiredskills(e.target.value)}
           />
-          <label>Company Info</label>
+          <label>required skills</label>
         </div>
-        <div className="add-company-form">
+         <div className="add-company-form">
           <input
             type="text"
             required="true"
@@ -73,6 +74,16 @@ function AddCompany() {
             name=""
             onChange={(e) => setPhone(e.target.value)}
           />
+          <div className="add-company-form">
+          <input
+            type="text"
+            name=""
+            required="true"
+            onChange={(e) => setPosition(e.target.value)}
+          />
+          <label>Position</label>
+        </div>
+
           <label>Phone</label>
         </div>
         <div className="add-company-form">
@@ -80,7 +91,7 @@ function AddCompany() {
             type="text"
             required="true"
             name=""
-            onChange={(e) => seWebsite(e.target.value)}
+            onChange={(e) => setWebsite(e.target.value)}
           />
           <label>Website</label>
         </div>
@@ -89,9 +100,9 @@ function AddCompany() {
             type="text"
             required="true"
             name=""
-            onChange={(e) => setAdrs(e.target.value)}
+            onChange={(e) => setjloc(e.target.value)}
           />
-          <label>Address</label>
+          <label>Job Location</label>
         </div>
         <div className="add-company-form">
           <input
@@ -112,15 +123,6 @@ function AddCompany() {
             }}
           />
           <label>Eligibility (CGPA)</label>
-        </div>
-        <div className="add-company-form">
-          <input
-            type="text"
-            name=""
-            required="true"
-            onChange={(e) => setPosition(e.target.value)}
-          />
-          <label>Position</label>
         </div>
         <btn onClick={addCompany}>Add</btn>
       </form>

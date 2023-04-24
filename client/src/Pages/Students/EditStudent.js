@@ -6,6 +6,7 @@ import "./AddStudent.css";
 function Editstudent(props) {
   const [sname, setSname] = useState(props.usn.sname);
   const [usn, setUsn] = useState(props.usn.usn);
+  const [sskills, setsskills] = useState(props.usn.sskills);
   const [mobile, setMobile] = useState(props.usn.mobile);
   const [email, setEmail] = useState(props.usn.email);
   const [dob, setDob] = useState(moment(props.usn.dob).format('YYYY-MM-DD'))
@@ -18,6 +19,7 @@ function Editstudent(props) {
     Axios.post(`${baseUrl}/updateStudents`, {
       sname: sname,
       usn: usn,
+      sskills:sskills,
       mobile: mobile,
       email: email,
       dob: dob,
@@ -77,6 +79,16 @@ function Editstudent(props) {
           />
           <label>USN</label>
         </div> */}
+        <div className="add-placement-form">
+          <input
+            type="text"
+            required="true"
+            name=""
+            onChange={(e) => setsskills(e.target.value)}
+            value={sskills}
+          />
+          <label>Student skills</label>
+        </div>
         <div className="add-placement-form">
           <input
             type="text"

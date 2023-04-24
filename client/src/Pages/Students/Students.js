@@ -106,6 +106,9 @@ function Students() {
               <TableCell className={classes.tableHeading} align="left">
                 USN
               </TableCell>
+              <TableCell className={classes.tableHeading}>
+                Student Skills
+              </TableCell>
               <TableCell className={classes.tableHeading} align="left">
                 Phone
               </TableCell>
@@ -129,9 +132,9 @@ function Students() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {studentsList.map((student) => {
+            {studentsList.map((student,index) => {
               return (
-                <TableRow key={student.stid}>
+                <TableRow key={index}>
                   <TableCell
                     className={classes.tableData}
                     component="th"
@@ -141,6 +144,9 @@ function Students() {
                   </TableCell>
                   <TableCell className={classes.tableData} align="left">
                     {student.usn}
+                  </TableCell>
+                  <TableCell className={classes.tableData} align="left">
+                    {student.sskills}
                   </TableCell>
                   <TableCell className={classes.tableData} align="left">
                     {student.mobile}

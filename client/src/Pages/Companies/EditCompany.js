@@ -4,11 +4,11 @@ import { toast, ToastContainer } from "react-toastify";
 import "./AddCompany.css";
 function EditCompany(props) {
   const [cname, setCname] = useState(props.companyDetails.cname);
-  const [cdescription, setCdescription] = useState(props.companyDetails.cdescription);
+  const [crequiredskills, setcrequiredskills] = useState(props.companyDetails.crequiredskills);
   const [email, setEmail] = useState(props.companyDetails.email);
   const [phone, setPhone] = useState(props.companyDetails.phone);
   const [website, seWebsite] = useState(props.companyDetails.website);
-  const [adrs, setAdrs] = useState(props.companyDetails.adrs);
+  const [jloc, setjloc] = useState(props.companyDetails.jloc);
   const [salary, setSalary] = useState(props.companyDetails.package);
   const [mincgpa, setMinCgpa] = useState(props.companyDetails.mincgpa);
   const [position, setPosition] = useState(props.companyDetails.position);
@@ -17,11 +17,11 @@ function EditCompany(props) {
   const editCompany = () => {
     Axios.post(`${baseUrl}/updateCompany`, {
       cname: cname,
-      cdescription: cdescription,
+      crequiredskills: crequiredskills,
       email: email,
       phone: phone,
       website: website,
-      adrs: adrs,
+      jloc: jloc,
       package: salary,
       mincgpa: mincgpa,
       position: position,
@@ -55,10 +55,10 @@ function EditCompany(props) {
             type="text"
             required="true"
             name=""
-            onChange={(e) => setCdescription(e.target.value)}
-            value={cdescription}
+            onChange={(e) => setcrequiredskills(e.target.value)}
+            value={crequiredskills}
           />
-          <label>Company Info</label>
+          <label>Required skills</label>
         </div>
         <div className="add-company-form">
           <input
@@ -97,10 +97,10 @@ function EditCompany(props) {
             type="text"
             required="true"
             name=""
-            onChange={(e) => setAdrs(e.target.value)}
-            value={adrs}
+            onChange={(e) => setjloc(e.target.value)}
+            value={jloc}
           />
-          <label>Address</label>
+          <label>job Location</label>
         </div>
         <div className="add-company-form">
           <input

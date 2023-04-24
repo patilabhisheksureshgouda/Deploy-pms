@@ -8,6 +8,8 @@ import Login from "./Pages/Login/Login";
 import Placements from "./Pages/Placements/Placements";
 import QuizForm from "./Pages/quiz/QuizForm";
 import Students from "./Pages/Students/Students";
+import Company_ML from "./Pages/Companies/Company_ML";
+
 /* eslint-disable */
 function App() {
   const [{ user }, dispatchUser] = useStateValue();
@@ -15,6 +17,7 @@ function App() {
   const [{ staff }, dispatchStaff] = useStateValue();
 
   const token = localStorage.getItem('token');
+  
   return (
     <>
       
@@ -42,6 +45,9 @@ function App() {
             </Route>
             <Route exact path="/quiz">
               <QuizForm />
+            </Route>
+            <Route exact path="/companies1">
+              <Company_ML />
             </Route>
           </Switch>
         </Router>

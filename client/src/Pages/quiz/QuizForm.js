@@ -32,7 +32,6 @@ const QuizForm = () => {
   //   }
   // };
 
-
   async function handleSubmit() {
     const questionData = {
       question,
@@ -49,27 +48,23 @@ const QuizForm = () => {
         body: JSON.stringify(questionData)
       });
   
-      if (!response.ok) {
-       
-        throw new Error('Failed to add question');
-     
+      if (response.ok) {
+        console.log('Question added successfully');
+        setSuccessMessage('Question added successfully.');
+        setQuestion('');
+        setAnswers(['', '', '', '']);
+        setCorrect(0);
+      } else {
+        throw new Error('Failed to add question.');
       }
-      alert('Question added successfully')
-      console.log('Question added successfully');
-      // Reset form fields after successful question submission
-      setSuccessMessage('Question added successfully.');
-      setQuestion('');
-      setAnswers(['', '', '', '']);
-      setCorrect(0);
-    
     } catch (error) {
       console.error(error);
-      alert('Failed to add question.')
-      setErrorMessage('Failed to add question.');
-      // Show error message to user
+      alert(error.message);
+      setErrorMessage(error.message);
     }
   }
-
+  
+  
   const handleAnswerChange = (index, event) => {
     const newAnswers = [...answers];
     newAnswers[index] = event.target.value;

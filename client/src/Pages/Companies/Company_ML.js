@@ -16,6 +16,8 @@ import { useStateValue } from "../../Context/StateProvider";
 import AddCompany from "./AddCompany";
 import "./Companies.css";
 import EditCompany from "./EditCompany";
+import axios from "axios";
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -37,7 +39,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Companies() {
+function Company_ML() {
   const classes = useStyles();
   const [companiesList, setCompaniesList] = useState([]);
   const baseUrl = "http://localhost:3001";
@@ -49,6 +51,29 @@ function Companies() {
 
   const [open, setOpen] = useState(false);
   const [openCompany, setOpenCompany] = useState(false);
+
+  
+  const [profiles, setProfiles] = useState([]);
+  const [currPerson, setCurrPerson] = useState("");
+  const [user, dispatchUser] = useStateValue();
+
+  const getProfiles = () => {
+
+    console.log("users",user.user[0].usn)
+    axios.get(`${baseUrl}/profile`).then((response) => {
+      setProfiles(response.data);
+    console.log('data',response.data[0].usn)
+    getCompanies(user.user[0].usn)
+    });
+  };
+
+  useEffect(() => {
+    getProfiles();
+  }, []);
+
+
+
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -69,9 +94,13 @@ function Companies() {
   };
   const [{ admin }, dispatchAdmin] = useStateValue();
 
+  
+
+
   //////////////////GET REQUEST TO SHOW/READ DATA//////////////
-  const getCompanies = () => {
-    Axios.get(`${baseUrl}/companies`).then((response) => {
+  const getCompanies = (usn) => {
+  
+    Axios.get(`${baseUrl}/get_my_companies?id=${usn}`).then((response) => {
       setCompaniesList(response.data);
     });
   };
@@ -96,9 +125,9 @@ function Companies() {
   };
 
 
-  useEffect(() => {
-    getCompanies();
-  });
+//   useEffect(() => {
+//     getCompanies();
+//   },[]);
 
   return (
     <div className="companies_page">
@@ -250,4 +279,4 @@ function Companies() {
   );
 }
 
-export default Companies;
+export default Company_ML;

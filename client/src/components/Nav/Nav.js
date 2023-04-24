@@ -39,7 +39,7 @@ function Nav() {
   return (
     <nav className="navbar">
       <Link to="/" className="navbar_logo">
-        JSS
+        KEYSTONE
         <FaUniversity style={{ color: "#f9032f", margin: "2px" }} />
       </Link>
 
@@ -62,16 +62,35 @@ function Nav() {
       </li>
       <li>
         <Link to="/placements" className="navbar_link">
-          Placements
+          Placed Students
         </Link>
       </li>
-      {!admin || admin === "" ? (
+      {((!admin || admin === "" )&& !staff )  ? (
         <li>
-          <Link to={{ pathname: "http://localhost:8080/" }} target="_blank" className="navbar_link">
+          <Link to={{ pathname: "http://localhost:8081/" }} target="_blank" className="navbar_link">
             Quiz
           </Link>
         </li>
       ) : null}
+
+
+{((!admin || admin === "" )&& !staff )  ? (
+        <li>
+         <Link to="/companies1" className="navbar_link">
+            Predicted Companies
+          </Link>
+        </li>
+      ) : null}
+  
+
+  
+      {/* {!staff || staff === "" ? (
+        <li>
+          <Link to={{ pathname: "http://localhost:8081/" }} target="_blank" className="navbar_link">
+            Quiz
+          </Link>
+        </li>
+      ) : null} */}
 
       {staff  ? (
         <li>
