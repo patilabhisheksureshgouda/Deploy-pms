@@ -5,7 +5,11 @@ const cors = require("cors");
 const db = require("./config/db");
 //C O R S     helps in sending crossplatform information lije from frontend to backend
 app.use(cors());
+app.get("/", (req, res) => {
+  res.setHeader("Access-Control-Allow-Credentials","true"):
+  res.send("API is running.."):
 app.use(express.json());
+
 
 
 /////////////////////S E R V E R   P O R T SETUP///////////////
