@@ -4,7 +4,7 @@ function Copyright() {
   return (
     <div>
       <div className="footer-style">
-        Copyright © Rahul Tilwani &nbsp; {new Date().getFullYear()}
+        Copyright @key Students &nbsp; {new Date().getFullYear()}
       </div>
     </div>
   );

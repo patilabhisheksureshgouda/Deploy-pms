@@ -62,7 +62,7 @@ function Company_ML() {
     console.log("users",user.user[0].usn)
     axios.get(`${baseUrl}/profile`).then((response) => {
       setProfiles(response.data);
-    console.log('data',response.data[0].usn)
+    console.log('data',response.data[0].usn);
     getCompanies(user.user[0].usn)
     });
   };

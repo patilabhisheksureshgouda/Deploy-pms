@@ -6,8 +6,11 @@
       rgba(0, 0, 0, 0.1) 100%,
       rgba(0, 0, 0, 0.8) 100%
     ),
-    url("https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+
+    /*background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%),*/
+   url("https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
   height: 100vh;
+
   background-position: center;
   background-size: cover;
   padding: 0.5rem calc((100vw - 1200px) / 2);
@@ -15,6 +18,7 @@
   justify-content: flex-start;
   align-items: center;
 }
+
 .hero_content {
   color: var(--white);
   padding: 3rem 1rem;
@@ -44,3 +48,5 @@
 .button:hover {
   background: var(--black);
 }
+
+

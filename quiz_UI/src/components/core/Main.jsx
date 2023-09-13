@@ -116,7 +116,7 @@ class Main extends Component {
     return (
       <div className="container">
 
-        <Webcam
+        {/* <Webcam
           style={{
             alignSelf: 'flex-end',
             marginTop: 0,
@@ -125,7 +125,7 @@ class Main extends Component {
           }}
           height={300}
           width={300}
-        />
+        /> */}
 
         <Popup style={{ display: displayPopup }}
           score={score}

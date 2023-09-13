@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import "./Login.css";
 import Axios from "axios";
 import { useStateValue } from "../../Context/StateProvider";
@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 function Login() {
   const [usn, setUsn] = useState("");
   const [pass, setPass] = useState("");
+  
   const [adminEmail, setAdminEmail] = useState("");
   const [adminPass, setAdminPass] = useState("");
 
@@ -83,7 +84,7 @@ function Login() {
   };
 
   const login = () => {
-    
+    //alert(usn)
     Axios.post(`${baseUrl}/login`, {
       usn: usn,
       pass: pass,
@@ -105,6 +106,7 @@ function Login() {
     });
   };
   const register = () => {
+    // alert(usernameReg)
     Axios.post(`${baseUrl}/register`, {
       usn: usernameReg,
       pass: passwordReg,

@@ -5,8 +5,8 @@ function Footer() {
     <div className="footer">
       <div className="footer_wrapper">
         <div className="footer_desc">
-          <h1>JSSATE</h1>
-          <p>JSS ACADEMY OF TECHNICAL EDUCATION BENGALURU</p>
+          <h1>Placement and Training Cell</h1>
+          <p>KEY Students</p>
           <p id="phone">305 - 123 - 4567</p>
         </div>
         <div className="footer_links">

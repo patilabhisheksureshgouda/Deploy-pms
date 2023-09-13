@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 const mysql = require("mysql");
@@ -65,7 +64,7 @@ app.post("/register", (req, res) => {
         res.send({ err: err });
         return;
       }
-      if (result.length) {
+      if (result) {
         res.send(result);
       } else {
         res.send({ message: "already exists" });
@@ -73,6 +72,8 @@ app.post("/register", (req, res) => {
     }
   );
 });
+
+
 
 /////////////////////ROUTE FOR LOGIN /////////////
 app.post("/login", (req, res) => {
@@ -83,18 +84,34 @@ app.post("/login", (req, res) => {
     "SELECT * FROM slogin WHERE usn = ? AND pass = ?",
     [usn, pass],
     (err, result) => {
+      console.log(result)
       if (err) {
     
         res.send({ err: err });
       }
       if (result) {
-        res.send(result);
+        db.query("Select * FROM  studentdetails  WHERE usn = ? ", usn , (err,result)=>{
+          if(result.length !=0 ){
+
+            console.log("res",result.length)
+            res.send(result);
+          }
+          else{
+            res.send({ message: "Wrong username/password combination" });
+          }
+        })
+    
       } else {
         res.send({ message: "Wrong username/password combination" });
       }
     }
   );
 });
+
+
+
+
+
 
 /////////////////////ROUTE FOR ADMIN LOGIN /////////////
 app.post("/admin", (req, res) => {
@@ -105,10 +122,13 @@ app.post("/admin", (req, res) => {
     "SELECT * FROM alogin WHERE email = ? AND pass = ?",
     [email, pass],
     (err, result) => {
+      console.log(result.length > 0)
       if (err) {
         res.send({ err: err });
+       
       }
-      if (result) {
+      if (result.length > 0) {
+        // console.log(result)
         res.send(result);
       } else {
         res.send({ message: "Wrong username/password combination" });
@@ -131,7 +151,7 @@ app.post("/staff", (req, res) => {
       if (err) {
         res.send({ err: err });
       }
-      if (result) {
+      if (result.length > 0) {
         res.send(result);
       } else {
         res.send({ message: "Wrong username/password combination" });
@@ -139,6 +159,7 @@ app.post("/staff", (req, res) => {
     }
   );
 });
+
 
 /////////////////////ROUTE FOR ADD COMPANIES /////////////
 app.post("/addcompany", (req, res) => {
@@ -597,6 +618,7 @@ app.get('/get_my_companies_ml', (req, res) => {
    });
   });
 });
+//******************************************************************************************************************************************************************** */
 
 // // route to handle GET requests from the frontend
 // app.get('/predictions', (req, res) => {
@@ -689,6 +711,7 @@ app.get('/get_my_companies_ml', (req, res) => {
 
 //       res.send(companyNames);
 //     });
-//   });
-// });
+//    });
+//  });
+
 

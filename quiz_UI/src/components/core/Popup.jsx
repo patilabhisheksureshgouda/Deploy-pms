@@ -26,7 +26,7 @@ class Popup extends Component {
                 buttonText: 'Close'
             });
             if (parseInt(this.props.score) < 4){
-                this.setState({title:'FAIL '})
+                this.setState({title:'Result'})
                }
 
             //alert("START THE QUIZ");
